@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "708824107934",
+    "project_id": "hsilhackathon",
+    "storage_bucket": "hsilhackathon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708824107934:android:b0e091deaf8c25ea25248f",
+        "android_client_info": {
+          "package_name": "com.example.hsilhackathon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrTFP7v5RouLqdBeKlSj1lUMLwkx7CD_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
