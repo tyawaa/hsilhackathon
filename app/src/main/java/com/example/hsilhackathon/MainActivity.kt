@@ -11,7 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val btnTenagaMedis = findViewById<AppCompatButton>(R.id.btnTenagaMedis)
         val btnPasien = findViewById<AppCompatButton>(R.id.btnPasien)
+
+        btnTenagaMedis.setOnClickListener {
+            startActivity(Intent(this, LoginTenagaKesehatanActivity::class.java))
+        }
 
         btnPasien.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
