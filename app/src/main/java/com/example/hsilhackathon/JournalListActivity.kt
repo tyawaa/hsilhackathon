@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hsilhackathon.data.AppDatabase
+import com.example.hsilhackathon.data.DatabaseProvider
 import com.example.hsilhackathon.data.dao.JournalDao
 import com.example.hsilhackathon.data.entity.JournalEntity
-import com.example.hsilhackathon.utils.PasswordUtils
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,8 +35,7 @@ class JournalListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_journal_list)
 
         // Initialize Database
-        val encryptionKey = PasswordUtils.getEncryptionKey(this)
-        db = AppDatabase.getDatabase(this, encryptionKey)
+        db = DatabaseProvider.getDatabase(this)
         journalDao = db.journalDao()
 
         // Init Views
@@ -47,7 +46,7 @@ class JournalListActivity : AppCompatActivity() {
         val btnBack = findViewById<ImageView>(R.id.btnBack)
 
         // Setup RecyclerView
-        adapter = JournalAdapter(emptyList())
+        adapter = JournalAdapter(emptyList<JournalEntity>())
         rvJournals.layoutManager = LinearLayoutManager(this)
         rvJournals.adapter = adapter
 
