@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    tools:context=".QuestionnaireLanjutanActivity">
+
+    <View
+        android:id="@+id/appBarBg2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detail Gejala (Pasca-Scan)"
+        android:textColor="#2D3748"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/appBarBg2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/btnAnalisisContainer"
+        app:layout_constraintTop_toBottomOf="@id/appBarBg2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kuesioner Lanjutan"
+                android:textColor="#111111"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="AI telah menangkap struktur kelainan kulit. Jawab pertanyaan berikut untuk mengerucutkan diagnosis."
+                android:textColor="#718096"
+                android:textSize="14sp" />
+
+            <!-- SOAL 1 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Sudah berapa lama gejala/ruam ini muncul?"
+                android:textColor="#4A5568"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerLamaGejala"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_spinner_rounded"
+                android:entries="@array/lama_gejala_array" />
+
+            <!-- SOAL 2 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Apakah terasa sangat gatal, terutama di malam hari?"
+                android:textColor="#4A5568"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rgGatal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbGatalYa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ya"
+                    android:textColor="#2D3748" />
+
+                <Space
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/rbGatalTidak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak"
+                    android:textColor="#2D3748" />
+            </RadioGroup>
+
+            <!-- SOAL 3 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Apakah ada riwayat kontak atau keluarga dengan keluhan yang sama?"
+                android:textColor="#4A5568"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rgKontak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbKontakYa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ya"
+                    android:textColor="#2D3748" />
+
+                <Space
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/rbKontakTidak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak"
+                    android:textColor="#2D3748" />
+            </RadioGroup>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/btnAnalisisContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLihatHasil"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#F08A11"
+            android:text="Analisis Diagnosis"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="14dp" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

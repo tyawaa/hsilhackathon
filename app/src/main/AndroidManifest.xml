@@ -17,6 +17,18 @@
             android:name=".ActivationActivity"
             android:exported="false" />
         <activity
+            android:name=".QuestionnaireAwalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScanAIActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionnaireLanjutanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HasilDiagnosaActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashboardActivity"
             android:exported="false" />
 

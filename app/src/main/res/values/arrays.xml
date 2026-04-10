@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gender_array">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+    <string-array name="lama_gejala_array">
+        <item>Kurang dari 1 minggu</item>
+        <item>1 - 2 minggu</item>
+        <item>Lebih dari 2 minggu</item>
+    </string-array>
+</resources>

@@ -7,5 +7,11 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        val btnGoScan = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnGoScan)
+        btnGoScan.setOnClickListener {
+            val intent = android.content.Intent(this, QuestionnaireAwalActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
