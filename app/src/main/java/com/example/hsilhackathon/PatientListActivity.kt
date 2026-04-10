@@ -58,6 +58,13 @@ class PatientListActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // Nav Profile button
+        val btnNavProfile = findViewById<View>(R.id.btnNavProfile)
+        btnNavProfile.setOnClickListener {
+            val intent = Intent(this, NakesProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

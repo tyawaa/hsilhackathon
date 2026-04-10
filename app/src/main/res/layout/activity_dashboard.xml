@@ -54,10 +54,31 @@
                             android:src="@drawable/logo_scira" />
                     </FrameLayout>
 
-                    <Space
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Selamat datang,"
+                            android:textColor="#E0E0E0"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvGreetingName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Tenaga Kesehatan"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <ImageView
                         android:layout_width="27dp"
@@ -895,6 +916,7 @@
 
                 <!-- Profile -->
                 <FrameLayout
+                    android:id="@+id/btnNavProfile"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">

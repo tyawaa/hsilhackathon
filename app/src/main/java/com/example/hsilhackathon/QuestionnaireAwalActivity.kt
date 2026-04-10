@@ -82,7 +82,7 @@ class QuestionnaireAwalActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@QuestionnaireAwalActivity, "Data pasien berhasil disimpan", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@QuestionnaireAwalActivity, ScanAIActivity::class.java)
+                    val intent = Intent(this@QuestionnaireAwalActivity, ConsentActivity::class.java)
                     intent.putExtra("NAMA_PASIEN", nama)
                     intent.putExtra("PATIENT_NIK", nik)
                     startActivity(intent)

@@ -103,9 +103,9 @@ class PatientSearchActivity : AppCompatActivity() {
             .setTitle("Keluhan Hari Ini")
             .setMessage("Pasien: $patientName\n\nApa keluhan pasien pada kunjungan ini?")
             .setView(editText)
-            .setPositiveButton("Lanjut ke Kamera") { _, _ ->
+            .setPositiveButton("Lanjut") { _, _ ->
                 val keluhan = editText.text.toString().trim()
-                val intent = Intent(this, ScanAIActivity::class.java)
+                val intent = Intent(this, ConsentActivity::class.java)
                 intent.putExtra("PATIENT_NIK", patientNik)
                 intent.putExtra("NAMA_PASIEN", patientName)
                 intent.putExtra("KELUHAN_HARI_INI", keluhan)

@@ -2,11 +2,16 @@ package com.example.hsilhackathon
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.hsilhackathon.utils.SessionManager
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        val sessionManager = SessionManager(this)
+        val tvGreetingName = findViewById<android.widget.TextView>(R.id.tvGreetingName)
+        tvGreetingName?.text = sessionManager.getUserName()
 
         val btnGoScan = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnGoScan)
         btnGoScan.setOnClickListener {
@@ -18,6 +23,13 @@ class DashboardActivity : AppCompatActivity() {
         val btnNavDatabase = findViewById<android.widget.FrameLayout>(R.id.btnNavDatabase)
         btnNavDatabase.setOnClickListener {
             val intent = android.content.Intent(this, PatientListActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Bottom Nav: Profile (right button)
+        val btnNavProfile = findViewById<android.widget.FrameLayout>(R.id.btnNavProfile)
+        btnNavProfile.setOnClickListener {
+            val intent = android.content.Intent(this, NakesProfileActivity::class.java)
             startActivity(intent)
         }
 
