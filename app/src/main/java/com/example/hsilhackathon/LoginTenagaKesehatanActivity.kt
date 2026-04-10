@@ -7,21 +7,35 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
+import androidx.lifecycle.lifecycleScope
+import com.example.hsilhackathon.data.DatabaseProvider
+import com.example.hsilhackathon.data.dao.NakesDao
+import com.example.hsilhackathon.utils.PasswordUtils
+import com.example.hsilhackathon.utils.SessionManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginTenagaKesehatanActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private lateinit var nakesDao: NakesDao
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        sessionManager = SessionManager(this)
+        
+        // If already logged in, go directly to Dashboard
+        if (sessionManager.isLoggedIn()) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+            return
+        }
+        
         setContentView(R.layout.activity_login_tenaga_kesehatan)
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+        nakesDao = DatabaseProvider.getDatabase(this).nakesDao()
 
         val etEmail = findViewById<EditText>(R.id.etEmailNakes)
         val etPassword = findViewById<EditText>(R.id.etPasswordNakes)
@@ -44,114 +58,38 @@ class LoginTenagaKesehatanActivity : AppCompatActivity() {
 
             btnLogin.isEnabled = false
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (!task.isSuccessful) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val nakes = nakesDao.getNakesByEmail(email)
+
+                    withContext(Dispatchers.Main) {
                         btnLogin.isEnabled = true
-                        Toast.makeText(
-                            this,
-                            task.exception?.message ?: "Login gagal",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        return@addOnCompleteListener
+                        
+                        if (nakes == null) {
+                            Toast.makeText(this@LoginTenagaKesehatanActivity, "Akun tidak ditemukan di database lokal", Toast.LENGTH_LONG).show()
+                            return@withContext
+                        }
+
+                        val isValidPassword = PasswordUtils.verifyPassword(password, nakes.hashedPassword)
+                        if (!isValidPassword) {
+                            Toast.makeText(this@LoginTenagaKesehatanActivity, "Password salah", Toast.LENGTH_LONG).show()
+                            return@withContext
+                        }
+
+                        // Success! Save session
+                        sessionManager.login(nakes.email, nakes.namaLengkap)
+                        Toast.makeText(this@LoginTenagaKesehatanActivity, "Login berhasil, selamat datang ${nakes.namaLengkap}", Toast.LENGTH_SHORT).show()
+
+                        startActivity(Intent(this@LoginTenagaKesehatanActivity, DashboardActivity::class.java))
+                        finish()
                     }
-
-                    val uid = auth.currentUser?.uid
-
-                    if (uid == null) {
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
                         btnLogin.isEnabled = true
-                        Toast.makeText(this, "UID user tidak ditemukan", Toast.LENGTH_LONG).show()
-                        return@addOnCompleteListener
+                        Toast.makeText(this@LoginTenagaKesehatanActivity, "Error DB: ${e.message}", Toast.LENGTH_LONG).show()
                     }
-
-                    db.collection("users")
-                        .document(uid)
-                        .get(Source.SERVER)
-                        .addOnSuccessListener { doc ->
-                            btnLogin.isEnabled = true
-
-                            if (!doc.exists()) {
-                                Toast.makeText(
-                                    this,
-                                    "Profil user tidak ditemukan",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                auth.signOut()
-                                return@addOnSuccessListener
-                            }
-
-                            val role = doc.getString("role") ?: ""
-
-                            val namaLengkap = doc.getString("namaLengkap")
-                                ?: doc.getString("nama_lengkap")
-                                ?: ""
-
-                            val verified = when (val value = doc.get("verified")) {
-                                is Boolean -> value
-                                is String -> value.equals("true", ignoreCase = true)
-                                else -> false
-                            }
-
-                            val isActive = when (val value = doc.get("isActive")) {
-                                is Boolean -> value
-                                is String -> value.equals("true", ignoreCase = true)
-                                else -> false
-                            }
-
-                            Toast.makeText(
-                                this,
-                                "role=$role, verified=$verified, isActive=$isActive",
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            if (role != "health_worker") {
-                                Toast.makeText(
-                                    this,
-                                    "Akun ini bukan akun tenaga kesehatan",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                auth.signOut()
-                                return@addOnSuccessListener
-                            }
-
-                            if (!isActive) {
-                                Toast.makeText(
-                                    this,
-                                    "Akun tidak aktif",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                auth.signOut()
-                                return@addOnSuccessListener
-                            }
-
-                            if (!verified) {
-                                Toast.makeText(
-                                    this,
-                                    "Akun belum diverifikasi",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                auth.signOut()
-                                return@addOnSuccessListener
-                            }
-
-                            Toast.makeText(
-                                this,
-                                "Login berhasil, selamat datang $namaLengkap",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
-                        }
-                        .addOnFailureListener { e ->
-                            btnLogin.isEnabled = true
-                            Toast.makeText(
-                                this,
-                                e.message ?: "Gagal mengambil data user dari server",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
                 }
+            }
         }
 
         tvSignUp.setOnClickListener {

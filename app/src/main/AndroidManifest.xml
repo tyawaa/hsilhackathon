@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsilhackathon">
         <activity
-            android:name=".dashboard"
+            android:name=".DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterTenagaKesehatanActivity"

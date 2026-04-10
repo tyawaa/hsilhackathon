@@ -10,21 +10,24 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
+import androidx.lifecycle.lifecycleScope
+import com.example.hsilhackathon.data.DatabaseProvider
+import com.example.hsilhackathon.data.dao.NakesDao
+import com.example.hsilhackathon.data.entity.NakesEntity
+import com.example.hsilhackathon.utils.PasswordUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RegisterTenagaKesehatanActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private lateinit var nakesDao: NakesDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_tenaga_kesehatan)
 
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+        nakesDao = DatabaseProvider.getDatabase(this).nakesDao()
 
         val etKodeFasilitas = findViewById<EditText>(R.id.etKodeFasilitas)
         val etNamaLengkap = findViewById<EditText>(R.id.etNamaLengkap)
@@ -114,67 +117,52 @@ class RegisterTenagaKesehatanActivity : AppCompatActivity() {
 
             btnRegister.isEnabled = false
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { authTask ->
-                    if (!authTask.isSuccessful) {
-                        btnRegister.isEnabled = true
-                        Toast.makeText(
-                            this,
-                            authTask.exception?.message ?: "Register gagal",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        return@addOnCompleteListener
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    // Check if email already exists
+                    val existingUser = nakesDao.getNakesByEmail(email)
+                    if (existingUser != null) {
+                        withContext(Dispatchers.Main) {
+                            btnRegister.isEnabled = true
+                            etEmail.error = "Email sudah terdaftar"
+                        }
+                        return@launch
                     }
 
-                    val uid = auth.currentUser?.uid
-                    if (uid == null) {
-                        btnRegister.isEnabled = true
-                        Toast.makeText(this, "UID user tidak ditemukan", Toast.LENGTH_LONG).show()
-                        return@addOnCompleteListener
-                    }
-
-                    val userMap = hashMapOf(
-                        "uid" to uid,
-                        "role" to "health_worker",
-                        "namaLengkap" to namaLengkap,
-                        "email" to email,
-                        "facilityCode" to kodeFasilitas,
-                        "staffId" to idPetugas,
-                        "jabatan" to jabatan,
-                        "verified" to false,
-                        "isActive" to true,
-                        "createdAt" to FieldValue.serverTimestamp()
+                    val hashedPassword = PasswordUtils.hashPassword(password)
+                    val newNakes = NakesEntity(
+                        email = email,
+                        namaLengkap = namaLengkap,
+                        hashedPassword = hashedPassword,
+                        kodeFasilitas = kodeFasilitas,
+                        idPetugas = idPetugas,
+                        jabatan = jabatan
                     )
 
-                    db.collection("users")
-                        .document(uid)
-                        .set(userMap)
-                        .addOnSuccessListener {
-                            auth.signOut()
+                    nakesDao.insertNakes(newNakes)
 
-                            btnRegister.isEnabled = true
-                            Toast.makeText(
-                                this,
-                                "Register berhasil. Akun menunggu verifikasi.",
-                                Toast.LENGTH_LONG
-                            ).show()
+                    withContext(Dispatchers.Main) {
+                        btnRegister.isEnabled = true
+                        Toast.makeText(
+                            this@RegisterTenagaKesehatanActivity,
+                            "Register berhasil di Database Lokal (Enkripsi).",
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                            startActivity(
-                                Intent(this, LoginTenagaKesehatanActivity::class.java)
-                            )
-                            finish()
-                        }
-                        .addOnFailureListener { e ->
-                            auth.currentUser?.delete()
-
-                            btnRegister.isEnabled = true
-                            Toast.makeText(
-                                this,
-                                e.message ?: "Gagal menyimpan data tenaga kesehatan",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                        startActivity(Intent(this@RegisterTenagaKesehatanActivity, LoginTenagaKesehatanActivity::class.java))
+                        finish()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        btnRegister.isEnabled = true
+                        Toast.makeText(
+                            this@RegisterTenagaKesehatanActivity,
+                            "Gagal menyimpan data lokal: ${e.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
+            }
         }
 
         tvLogin.setOnClickListener {

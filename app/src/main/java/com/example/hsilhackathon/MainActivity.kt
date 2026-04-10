@@ -3,23 +3,24 @@ package com.example.hsilhackathon
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
+import com.example.hsilhackathon.utils.SessionManager
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val btnTenagaMedis = findViewById<AppCompatButton>(R.id.btnTenagaMedis)
-        val btnPasien = findViewById<AppCompatButton>(R.id.btnPasien)
-
-        btnTenagaMedis.setOnClickListener {
+        
+        val sessionManager = SessionManager(this)
+        
+        // As per the offline-first Health Worker architecture,
+        // we bypass the patient login and go straight to the Nakes Auth flow.
+        
+        if (sessionManager.isLoggedIn()) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+        } else {
             startActivity(Intent(this, LoginTenagaKesehatanActivity::class.java))
         }
-
-        btnPasien.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+        
+        finish() // Close this dispatch activity
     }
 }
