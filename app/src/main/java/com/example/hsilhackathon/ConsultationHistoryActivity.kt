@@ -25,7 +25,7 @@ class ConsultationHistoryActivity : AppCompatActivity() {
 
         rvConsultationHistory.layoutManager = LinearLayoutManager(this)
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val appDb = AppDatabase.getDatabase(
                 this@ConsultationHistoryActivity,
                 "dummy_key_123".toByteArray()
@@ -33,13 +33,15 @@ class ConsultationHistoryActivity : AppCompatActivity() {
             
             val historyList = appDb.consultationDao().getAllConsultations()
             
-            if (historyList.isEmpty()) {
-                tvEmptyState.visibility = View.VISIBLE
-                rvConsultationHistory.visibility = View.GONE
-            } else {
-                tvEmptyState.visibility = View.GONE
-                rvConsultationHistory.visibility = View.VISIBLE
-                rvConsultationHistory.adapter = ConsultationHistoryAdapter(historyList)
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                if (historyList.isEmpty()) {
+                    tvEmptyState.visibility = View.VISIBLE
+                    rvConsultationHistory.visibility = View.GONE
+                } else {
+                    tvEmptyState.visibility = View.GONE
+                    rvConsultationHistory.visibility = View.VISIBLE
+                    rvConsultationHistory.adapter = ConsultationHistoryAdapter(historyList)
+                }
             }
         }
     }
