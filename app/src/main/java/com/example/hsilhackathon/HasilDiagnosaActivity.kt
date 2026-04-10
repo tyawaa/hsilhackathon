@@ -24,10 +24,16 @@ class HasilDiagnosaActivity : AppCompatActivity() {
             Toast.makeText(this, "Data pasien berhasil disimpan secara offline (terenkripsi)", Toast.LENGTH_LONG).show()
             
             // Return to Dashbaord
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            val dashboardIntent = Intent(this, DashboardActivity::class.java)
+            dashboardIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(dashboardIntent)
             finish()
+        }
+
+        val btnSecondOpinionResult = findViewById<MaterialButton>(R.id.btnSecondOpinionResult)
+        btnSecondOpinionResult?.setOnClickListener {
+            val dIntent = Intent(this, DermatologistListActivity::class.java)
+            startActivity(dIntent)
         }
     }
 }

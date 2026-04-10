@@ -37,6 +37,12 @@
         <activity
             android:name=".JournalDetailActivity"
             android:exported="false" />
+        <activity
+            android:name=".DermatologistListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsultationResponseActivity"
+            android:exported="false" />
 
         <activity
             android:name=".LoginTenagaKesehatanActivity"
