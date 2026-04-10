@@ -20,6 +20,12 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val btnNavHistory = findViewById<android.widget.LinearLayout>(R.id.btnNavHistory)
+        btnNavHistory?.setOnClickListener {
+            val intent = android.content.Intent(this, ConsultationHistoryActivity::class.java)
+            startActivity(intent)
+        }
+
         val btnSecondOpinionSyifa = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSecondOpinionSyifa)
         val btnSecondOpinionRina = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSecondOpinionRina)
 

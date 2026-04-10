@@ -43,6 +43,9 @@
         <activity
             android:name=".ConsultationResponseActivity"
             android:exported="false" />
+        <activity
+            android:name=".ConsultationHistoryActivity"
+            android:exported="false" />
 
         <activity
             android:name=".LoginTenagaKesehatanActivity"

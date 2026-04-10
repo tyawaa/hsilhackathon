@@ -86,16 +86,16 @@ function App() {
             </div>
 
             <div className="section-title">Jawaban Kuesioner</div>
-            <ul style={{fontSize:'14px', lineHeight:'1.8', color:'var(--text-dark)'}}>
+            <ul className="qna-list">
               <li><b>Keluhan utama:</b> Ruam merah gatal di lengan, sudah 2 minggu</li>
               <li><b>Gatal terasa malam?:</b> Ya</li>
               <li><b>Keluarga dengan keluhan sama?:</b> Tidak</li>
               <li><b>Riwayat alergi?:</b> Tidak</li>
               <li><b>Sudah diobati?:</b> Ya (bedak antijamur OTC, tidak membaik)</li>
-              <li><b>Lokasi & Bentuk:</b> Lengan kanan, batas tegas, melingkar tepi merah</li>
+              <li><b>Lokasi &amp; Bentuk:</b> Lengan kanan, batas tegas, melingkar tepi merah</li>
             </ul>
 
-            <div className="section-title" style={{marginTop:'24px'}}>Catatan GP Pengirim</div>
+            <div className="section-title">Catatan GP Pengirim</div>
             <div className="notes-box">
               "Pasien sudah coba Kalpanax selama 1 minggu penuh, tapi tidak ada perubahan signifikan. Mohon second opinion apakah perlu oral antifungi."
             </div>
@@ -103,13 +103,13 @@ function App() {
 
           {/* RIGHT COLUMN: THE DOCTOR RESPONSE FORM */}
           <div className="card">
-            <h2 style={{margin:'0 0 24px 0', fontSize:'18px'}}>Form Respons Spesialis</h2>
+            <h2 style={{margin:'0 0 32px 0', fontSize:'22px'}}>Form Respons Spesialis</h2>
             
             {responseSent ? (
-              <div style={{textAlign:'center', padding:'40px 20px'}}>
-                <div style={{fontSize:'48px', marginBottom:'16px'}}>✅</div>
-                <h3>Respons Terkirim</h3>
-                <p style={{color:'var(--text-muted)'}}>GP akan menerima notifikasi balasan Anda. Resolusi kasus terbuka untuk Feedback Loop AI.</p>
+              <div className="success-state">
+                <div className="success-icon">✓</div>
+                <h3 style={{margin:'0 0 12px 0', fontSize:'24px', color:'var(--text-dark)'}}>Respons Terkirim</h3>
+                <p style={{margin:0, color:'var(--text-muted)', lineHeight:1.6}}>GP akan menerima notifikasi balasan Anda. Resolusi kasus terbuka untuk Feedback Loop AI.</p>
               </div>
             ) : (
               <>

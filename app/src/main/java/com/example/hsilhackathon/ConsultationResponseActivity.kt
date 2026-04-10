@@ -7,6 +7,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ConsultationResponseActivity : AppCompatActivity() {
 
@@ -33,15 +37,38 @@ class ConsultationResponseActivity : AppCompatActivity() {
             .setNegativeButton("Tidak Sesuai") { _, _ ->
                 finishConsultation("Mismatch")
             }
-            .setCancelable(false)
+            .setNeutralButton("Kembali Baca") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
             .show()
     }
 
     private fun finishConsultation(status: String) {
-        Toast.makeText(this, "Kasus ditutup. Feedback ($status) disimpan untuk retraining model offline.", Toast.LENGTH_LONG).show()
-        val intent = Intent(this, DashboardActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        startActivity(intent)
-        finish()
+        val consultation = com.example.hsilhackathon.data.entity.ConsultationEntity(
+            caseId = "CS-2026-0047",
+            doctorName = "Dr. Syifa Astuti, Sp.DVE",
+            aiDiagnosis = "Skabies",
+            specialistDiagnosis = "Skabies",
+            treatmentRecommendation = "1. Tetap lanjutkan Permethrin 5%.\n2. Pastikan seluruh anggota keluarga / kontak erat juga diobati secara bersamaan.\n3. Cuci sprei dengan air panas.",
+            feedbackStatus = status,
+            dateTimestamp = System.currentTimeMillis()
+        )
+
+        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+            val appDb = com.example.hsilhackathon.data.AppDatabase.getDatabase(
+                this@ConsultationResponseActivity,
+                "dummy_key_123".toByteArray() // Must match the SQLCipher key
+            )
+            appDb.consultationDao().insertConsultation(consultation)
+            
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                Toast.makeText(this@ConsultationResponseActivity, "Kasus ditutup. Feedback ($status) disimpan secara offline.", Toast.LENGTH_LONG).show()
+                val intent = Intent(this@ConsultationResponseActivity, DashboardActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }
