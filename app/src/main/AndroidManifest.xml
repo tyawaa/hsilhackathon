@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsilhackathon">
         <activity
+            android:name=".PatientSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PatientDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivationActivity"
             android:exported="false" />
         <activity

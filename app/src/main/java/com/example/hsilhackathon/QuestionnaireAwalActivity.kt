@@ -6,8 +6,14 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.hsilhackathon.data.DatabaseProvider
+import com.example.hsilhackathon.data.entity.PatientEntity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QuestionnaireAwalActivity : AppCompatActivity() {
 
@@ -42,6 +48,11 @@ class QuestionnaireAwalActivity : AppCompatActivity() {
             val alamat = etAlamat.text.toString().trim()
             val pekerjaan = etPekerjaan.text.toString().trim()
             val kontakDarurat = etKontakDarurat.text.toString().trim()
+            val riwayatPenyakit = etRiwayatPenyakit.text.toString().trim()
+            val nomorBpjs = etNomorBpjs.text.toString().trim()
+            val gender = spinnerGender.selectedItem?.toString() ?: ""
+            val agama = spinnerAgama.selectedItem?.toString() ?: ""
+            val golDarah = spinnerGolonganDarah.selectedItem?.toString() ?: ""
             // Riwayat penyakit dan BPJS opsional jadi tidak harus di validasi isNotEmpty()
             
             if (nama.isEmpty() || nik.isEmpty() || tglLahir.isEmpty() || noTelp.isEmpty() || alamat.isEmpty() || pekerjaan.isEmpty() || kontakDarurat.isEmpty()) {
@@ -49,10 +60,35 @@ class QuestionnaireAwalActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // In a real app we'd save this to Room DB here or pass via Intent.
-            val intent = Intent(this, ScanAIActivity::class.java)
-            intent.putExtra("NAMA_PASIEN", nama)
-            startActivity(intent)
+            // Save patient to Room database
+            val patient = PatientEntity(
+                nik = nik,
+                namaLengkap = nama,
+                tanggalLahir = tglLahir,
+                jenisKelamin = gender,
+                agama = agama,
+                noTelepon = noTelp,
+                alamat = alamat,
+                pekerjaan = pekerjaan,
+                golonganDarah = golDarah,
+                riwayatPenyakit = riwayatPenyakit,
+                kontakDarurat = kontakDarurat,
+                nomorBpjs = nomorBpjs
+            )
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                val db = DatabaseProvider.getDatabase(this@QuestionnaireAwalActivity)
+                db.patientDao().insertPatient(patient)
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@QuestionnaireAwalActivity, "Data pasien berhasil disimpan", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@QuestionnaireAwalActivity, ScanAIActivity::class.java)
+                    intent.putExtra("NAMA_PASIEN", nama)
+                    intent.putExtra("PATIENT_NIK", nik)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 }

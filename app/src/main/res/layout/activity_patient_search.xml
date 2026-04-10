@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    tools:context=".PatientSearchActivity">
+
+    <!-- APP BAR -->
+    <View
+        android:id="@+id/appBarBgSearch"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnBackSearch"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:src="@android:drawable/ic_menu_revert"
+        app:tint="#2D3748"
+        app:layout_constraintBottom_toBottomOf="@id/appBarBgSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cari Pasien"
+        android:textColor="#2D3748"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/appBarBgSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- INSTRUCTION -->
+    <TextView
+        android:id="@+id/tvSearchInstruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:text="Cari pasien di database untuk melanjutkan prediksi, atau buat data pasien baru."
+        android:textColor="#718096"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/appBarBgSearch" />
+
+    <!-- SEARCH BAR -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchBarCardPre"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="3dp"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchInstruction">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="Search"
+                android:src="@drawable/search"
+                android:tint="#8A8A8A" />
+
+            <EditText
+                android:id="@+id/etSearchPatientPre"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Ketik nama atau NIK pasien..."
+                android:inputType="text"
+                android:textColor="#111111"
+                android:textColorHint="#AAAAAA"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- SEARCH RESULTS COUNT -->
+    <TextView
+        android:id="@+id/tvSearchResultCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="Ketik untuk mencari..."
+        android:textColor="#8A8A8A"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBarCardPre" />
+
+    <!-- SEARCH RESULTS LIST -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearchResults"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btnAddNewPatientContainer"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchResultCount" />
+
+    <!-- EMPTY / NO RESULTS STATE -->
+    <LinearLayout
+        android:id="@+id/noResultState"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnAddNewPatientContainer"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchResultCount">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:alpha="0.4"
+            android:contentDescription="No result"
+            android:src="@drawable/search"
+            android:tint="#8A8A8A" />
+
+        <TextView
+            android:id="@+id/tvNoResultMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Pasien tidak ditemukan"
+            android:textColor="#8A8A8A"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Buat data pasien baru di bawah"
+            android:textColor="#AAAAAA"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <!-- BOTTOM: ADD NEW PATIENT BUTTON -->
+    <FrameLayout
+        android:id="@+id/btnAddNewPatientContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddNewPatient"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="#5C5EF0"
+            android:text="+ Pasien Baru (Isi Form Lengkap)"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="14dp" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

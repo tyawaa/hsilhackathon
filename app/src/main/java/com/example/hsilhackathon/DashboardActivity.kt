@@ -10,7 +10,14 @@ class DashboardActivity : AppCompatActivity() {
 
         val btnGoScan = findViewById<com.google.android.material.button.MaterialButton>(R.id.btnGoScan)
         btnGoScan.setOnClickListener {
-            val intent = android.content.Intent(this, QuestionnaireAwalActivity::class.java)
+            val intent = android.content.Intent(this, PatientSearchActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Bottom Nav: Database Pasien (center button)
+        val btnNavDatabase = findViewById<android.widget.FrameLayout>(R.id.btnNavDatabase)
+        btnNavDatabase.setOnClickListener {
+            val intent = android.content.Intent(this, PatientListActivity::class.java)
             startActivity(intent)
         }
 

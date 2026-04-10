@@ -10,14 +10,17 @@ import com.example.hsilhackathon.data.dao.JournalDao
 import com.example.hsilhackathon.data.entity.JournalEntity
 import com.example.hsilhackathon.data.dao.ConsultationDao
 import com.example.hsilhackathon.data.entity.ConsultationEntity
+import com.example.hsilhackathon.data.dao.PatientDao
+import com.example.hsilhackathon.data.entity.PatientEntity
 import net.sqlcipher.database.SupportFactory
 
-@Database(entities = [NakesEntity::class, JournalEntity::class, ConsultationEntity::class], version = 4, exportSchema = false)
+@Database(entities = [NakesEntity::class, JournalEntity::class, ConsultationEntity::class, PatientEntity::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun nakesDao(): NakesDao
     abstract fun journalDao(): JournalDao
     abstract fun consultationDao(): ConsultationDao
+    abstract fun patientDao(): PatientDao
 
     companion object {
         @Volatile
