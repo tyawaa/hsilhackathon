@@ -41,4 +41,15 @@ class SessionManager(context: Context) {
     fun getUserEmail(): String {
         return sharedPrefs.getString("email", "") ?: ""
     }
+
+    fun setDeviceActivated(kodeFasilitas: String) {
+        sharedPrefs.edit()
+            .putBoolean("is_device_activated", true)
+            .putString("kode_fasilitas", kodeFasilitas)
+            .apply()
+    }
+
+    fun isDeviceActivated(): Boolean {
+        return sharedPrefs.getBoolean("is_device_activated", false)
+    }
 }

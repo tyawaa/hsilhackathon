@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hsilhackathon">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ActivationActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterTenagaKesehatanActivity"
+            android:name=".DashboardActivity"
             android:exported="false" />
+
         <activity
             android:name=".LoginTenagaKesehatanActivity"
             android:exported="false" />

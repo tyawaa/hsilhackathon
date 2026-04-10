@@ -40,7 +40,6 @@ class LoginTenagaKesehatanActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmailNakes)
         val etPassword = findViewById<EditText>(R.id.etPasswordNakes)
         val btnLogin = findViewById<AppCompatButton>(R.id.btnLoginTenagaKesehatan)
-        val tvSignUp = findViewById<TextView>(R.id.tvSignUpTenagaKesehatan)
 
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
@@ -90,10 +89,6 @@ class LoginTenagaKesehatanActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-
-        tvSignUp.setOnClickListener {
-            startActivity(Intent(this, RegisterTenagaKesehatanActivity::class.java))
         }
     }
 }

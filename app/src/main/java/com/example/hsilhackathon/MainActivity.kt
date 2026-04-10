@@ -14,8 +14,10 @@ class MainActivity : AppCompatActivity() {
         
         // As per the offline-first Health Worker architecture,
         // we bypass the patient login and go straight to the Nakes Auth flow.
-        
-        if (sessionManager.isLoggedIn()) {
+        // NEW: Check if device is activated first
+        if (!sessionManager.isDeviceActivated()) {
+            startActivity(Intent(this, ActivationActivity::class.java))
+        } else if (sessionManager.isLoggedIn()) {
             startActivity(Intent(this, DashboardActivity::class.java))
         } else {
             startActivity(Intent(this, LoginTenagaKesehatanActivity::class.java))

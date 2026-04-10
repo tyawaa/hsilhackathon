@@ -13,4 +13,7 @@ interface NakesDao {
 
     @Query("SELECT * FROM nakes WHERE email = :email")
     suspend fun getNakesByEmail(email: String): NakesEntity?
+
+    @Query("DELETE FROM nakes")
+    suspend fun clearAllNakes()
 }
