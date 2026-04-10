@@ -56,10 +56,7 @@ class ConsultationResponseActivity : AppCompatActivity() {
         )
 
         kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
-            val appDb = com.example.hsilhackathon.data.AppDatabase.getDatabase(
-                this@ConsultationResponseActivity,
-                "dummy_key_123".toByteArray() // Must match the SQLCipher key
-            )
+            val appDb = com.example.hsilhackathon.data.DatabaseProvider.getDatabase(this@ConsultationResponseActivity)
             appDb.consultationDao().insertConsultation(consultation)
             
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {

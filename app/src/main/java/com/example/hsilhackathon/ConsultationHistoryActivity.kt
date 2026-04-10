@@ -26,9 +26,8 @@ class ConsultationHistoryActivity : AppCompatActivity() {
         rvConsultationHistory.layoutManager = LinearLayoutManager(this)
 
         lifecycleScope.launch(kotlinx.coroutines.Dispatchers.IO) {
-            val appDb = AppDatabase.getDatabase(
-                this@ConsultationHistoryActivity,
-                "dummy_key_123".toByteArray()
+            val appDb = com.example.hsilhackathon.data.DatabaseProvider.getDatabase(
+                this@ConsultationHistoryActivity
             )
             
             val historyList = appDb.consultationDao().getAllConsultations()
