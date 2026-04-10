@@ -9,4 +9,20 @@
         <item>1 - 2 minggu</item>
         <item>Lebih dari 2 minggu</item>
     </string-array>
+    <string-array name="agama_array">
+        <item>Islam</item>
+        <item>Kristen Protestan</item>
+        <item>Katolik</item>
+        <item>Hindu</item>
+        <item>Buddha</item>
+        <item>Konghucu</item>
+        <item>Kepercayaan Lainnya</item>
+    </string-array>
+    <string-array name="golongan_darah_array">
+        <item>Tidak Tahu</item>
+        <item>A</item>
+        <item>B</item>
+        <item>AB</item>
+        <item>O</item>
+    </string-array>
 </resources>
