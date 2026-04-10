@@ -40,11 +40,15 @@ class JournalAdapter(private var journals: List<JournalEntity>) :
         }
 
         holder.itemView.setOnClickListener {
-            // Placeholder interaction: Open URL in browser
-            if (journal.contentUrl.isNotEmpty()) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(journal.contentUrl))
-                holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, JournalDetailActivity::class.java).apply {
+                putExtra("EXTRA_TITLE", journal.title)
+                putExtra("EXTRA_SOURCE", journal.source)
+                putExtra("EXTRA_DATE", journal.date)
+                putExtra("EXTRA_CATEGORY", journal.category)
+                putExtra("EXTRA_CONTENT", journal.content)
+                putExtra("EXTRA_URL", journal.contentUrl)
             }
+            holder.itemView.context.startActivity(intent)
         }
     }
 

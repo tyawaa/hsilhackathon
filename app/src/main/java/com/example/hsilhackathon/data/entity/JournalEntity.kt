@@ -12,5 +12,6 @@ data class JournalEntity(
     val date: String,
     val category: String, // e.g., "Skabies", "Kusta", "NTD Umum"
     val contentUrl: String,
+    val content: String = "", // Add content field
     val isFromSync: Boolean = false // to mark if this was fetched from wifi later
 )

@@ -104,9 +104,9 @@ class JournalListActivity : AppCompatActivity() {
             val existing = journalDao.getAllJournals()
             if (existing.isEmpty()) {
                 val initialData = listOf(
-                    JournalEntity("j1", "Panduan Deteksi Dini Skabies Berbasis AI", "Kemenkes RI", "12 Jan 2026", "Skabies", "https://kemkes.go.id"),
-                    JournalEntity("j2", "Waspada Kusta di Daerah Tropis", "Jurnal Kedokteran Tropis", "05 Jan 2026", "Kusta", "https://kemkes.go.id"),
-                    JournalEntity("j3", "Tata Laksana Pengobatan Frambusia", "WHO Indonesia", "10 Feb 2026", "Frambusia", "https://who.int/indonesia")
+                    JournalEntity("j1", "Panduan Deteksi Dini Skabies Berbasis AI", "Kemenkes RI", "12 Jan 2026", "Skabies", "https://kemkes.go.id", content = "Penyakit skabies masih menjadi masalah utama di fasilitas padat penduduk. Dengan inovasi deteksi dini melalui pemindaian AI, tenaga kesehatan di puskesmas diharapkan mampu mengidentifikasi burrow atau terowongan khas Sarcoptes scabiei lebih akurat pada fase awal.\n\nLangkah penanganan awal meliputi pemberian Permethrin 5% pada seluruh anggota keluarga yang serumah demi memutus rantai penularan."),
+                    JournalEntity("j2", "Waspada Kusta di Daerah Tropis", "Jurnal Kedokteran Tropis", "05 Jan 2026", "Kusta", "https://kemkes.go.id", content = "Kusta atau Lepra adalah penyakit menular menahun yang disebabkan oleh Mycobacterium leprae. Tanda awal sering berupa bercak putih atau kemerahan pada kulit yang mati rasa.\n\nEdukasi kepada masyarakat dan deteksi kardinal adalah kunci pemberantasan kusta sebelum masuk fase disabilitas tingkat 2."),
+                    JournalEntity("j3", "Tata Laksana Pengobatan Frambusia", "WHO Indonesia", "10 Feb 2026", "Frambusia", "https://who.int/indonesia", content = "Frambusia ditularkan melalui kontak kulit langsung dengan penderita. WHO menyarankan pemberian Azithromycin dosis tunggal secara massal di daerah endemis.\n\nPemantauan pasca-pengobatan wajib berjalan minimal 6 bulan.")
                 )
                 journalDao.insertJournals(initialData)
             }
@@ -125,8 +125,8 @@ class JournalListActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     val syncData = listOf(
-                        JournalEntity("s1", "Update Tatalaksana Skabies Komprehensif", "Ikatan Dokter Indonesia", "09 Apr 2026", "Skabies", "https://kemkes.go.id", isFromSync = true),
-                        JournalEntity("s2", "Edukasi Masyarakat Tentang Bahaya Kusta", "Kemenkes RI", "10 Apr 2026", "Kusta", "https://kemkes.go.id", isFromSync = true)
+                        JournalEntity("s1", "Update Tatalaksana Skabies Komprehensif", "Ikatan Dokter Indonesia", "09 Apr 2026", "Skabies", "https://kemkes.go.id", "Garis panduan terbaru menegaskan pentingnya desinfeksi lingkungan hidup pasien skabies. Barang seperti sprei dan pakaian harus dicuci dengan air panas.", true),
+                        JournalEntity("s2", "Edukasi Masyarakat Tentang Bahaya Kusta", "Kemenkes RI", "10 Apr 2026", "Kusta", "https://kemkes.go.id", "Melawan stigma negatif di masyarakat sangat penting agar pasien mau memeriksakan diri tanpa takut. Kampanye harus berfokus bahwa Kusta bisa disembuhkan.", true)
                     )
                     journalDao.insertJournals(syncData)
                 }

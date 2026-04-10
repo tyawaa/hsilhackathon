@@ -10,7 +10,7 @@ import com.example.hsilhackathon.data.dao.JournalDao
 import com.example.hsilhackathon.data.entity.JournalEntity
 import net.sqlcipher.database.SupportFactory
 
-@Database(entities = [NakesEntity::class, JournalEntity::class], version = 2, exportSchema = false)
+@Database(entities = [NakesEntity::class, JournalEntity::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun nakesDao(): NakesDao
