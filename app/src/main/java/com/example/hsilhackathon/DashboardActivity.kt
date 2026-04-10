@@ -13,5 +13,11 @@ class DashboardActivity : AppCompatActivity() {
             val intent = android.content.Intent(this, QuestionnaireAwalActivity::class.java)
             startActivity(intent)
         }
+
+        val btnNavJurnal = findViewById<android.widget.LinearLayout>(R.id.btnNavJurnal)
+        btnNavJurnal.setOnClickListener {
+            val intent = android.content.Intent(this, JournalListActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -6,12 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.hsilhackathon.data.dao.NakesDao
 import com.example.hsilhackathon.data.entity.NakesEntity
+import com.example.hsilhackathon.data.dao.JournalDao
+import com.example.hsilhackathon.data.entity.JournalEntity
 import net.sqlcipher.database.SupportFactory
 
-@Database(entities = [NakesEntity::class], version = 1, exportSchema = false)
+@Database(entities = [NakesEntity::class, JournalEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun nakesDao(): NakesDao
+    abstract fun journalDao(): JournalDao
 
     companion object {
         @Volatile

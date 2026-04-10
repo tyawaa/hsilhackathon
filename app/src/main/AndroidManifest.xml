@@ -31,6 +31,9 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
+        <activity
+            android:name=".JournalListActivity"
+            android:exported="false" />
 
         <activity
             android:name=".LoginTenagaKesehatanActivity"
