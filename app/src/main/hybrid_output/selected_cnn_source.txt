@@ -1,0 +1,1 @@
+keras|D:\HSIL\hybrid_mnv3_yolo_v2\cnn_output\best_finetune.keras

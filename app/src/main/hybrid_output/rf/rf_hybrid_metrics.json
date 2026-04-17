@@ -1,0 +1,16 @@
+{
+  "best_cv_f1_macro": 0.9840576752038519,
+  "oof_accuracy": 0.9840848806366048,
+  "oof_f1_macro": 0.9840657306425175,
+  "oof_f1_weighted": 0.9840848806366048,
+  "best_params": {
+    "model__n_estimators": 200,
+    "model__min_samples_split": 4,
+    "model__min_samples_leaf": 3,
+    "model__max_features": "sqrt",
+    "model__max_depth": 12,
+    "model__criterion": "entropy",
+    "model__class_weight": "balanced_subsample",
+    "model__bootstrap": false
+  }
+}

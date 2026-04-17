@@ -77,10 +77,11 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tvDiagnosisResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Skabies (Kudis)"
+                        android:text="Memuat Diagnosa..."
                         android:textColor="#E53E3E"
                         android:textSize="26sp"
                         android:textStyle="bold" />
@@ -116,11 +117,12 @@
                 app:strokeWidth="1dp">
 
                 <TextView
+                    android:id="@+id/tvTreatmentDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="4dp"
                     android:padding="16dp"
-                    android:text="1. Isolasi barang pribadi pasien.\n2. Berikan Krim Permethrin 5% (dioleskan ke seluruh tubuh, diamkan semalaman).\n3. Konsul dokter spesialis via fitur Chat jika gejala tidak membaik dalam 2 minggu."
+                    android:text="Loading Rekomendasi..."
                     android:textColor="#234E52"
                     android:textSize="14sp" />
             </com.google.android.material.card.MaterialCardView>

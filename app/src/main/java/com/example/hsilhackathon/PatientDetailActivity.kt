@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.hsilhackathon.data.DatabaseProvider
 import com.example.hsilhackathon.data.entity.PatientEntity
+import com.example.hsilhackathon.security.BaseSecurityActivity
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PatientDetailActivity : AppCompatActivity() {
+class PatientDetailActivity : BaseSecurityActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

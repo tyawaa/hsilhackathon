@@ -37,6 +37,11 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    androidResources {
+        noCompress.add("tflite")
+        noCompress.add("onnx")
+    }
 }
 
 dependencies {
@@ -65,4 +70,21 @@ dependencies {
     
     // Security Crypto
     implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
+
+    // CameraX
+    val camerax_version = "1.3.1"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-view:${camerax_version}")
+
+    // TensorFlow Lite
+    implementation("org.tensorflow:tensorflow-lite:2.14.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+
+    // ONNX Runtime
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.17.1")
+    
+    // Guava (For CameraX ListenableFuture)
+    implementation("com.google.guava:guava:32.1.3-android")
 }
