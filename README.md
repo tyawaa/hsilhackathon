@@ -4,7 +4,10 @@
 This project is a secure, offline-first Android application designed specifically to empower frontline health workers (*Nakes*). It serves as an advanced clinical decision support system to assist in diagnosing tropical and non-tropical diseases. By running Machine Learning models directly on the device, it provides rapid, reliable assessments even in areas with low or no internet connectivity. The application is built with a strong emphasis on data security, strictly adhering to ISO 27001 standards and Indonesian Personal Data Protection (UU PDP) laws.
 
 ## Demo
-*(Add a GIF, image, or link to a live demo here showing the AI scan, questionnaire, and diagnostic workflow)*
+
+<p align="center">
+  <img src="docs/demo_workflow.png" alt="SCIRA App Workflow — Dashboard → AI Scan → Diagnosis Result" width="800"/>
+</p>
 
 ## Installation
 To set up and run this project locally, follow these steps:
@@ -43,6 +46,8 @@ To set up and run this project locally, follow these steps:
 *   **Security Tools**: Android Keystore, SSL Pinning
 
 ## Contributors
-*   **RavelGS** - AI Implementation & Model Integration
-*   **tyawaa** - Frontend & Backend Data Integration
-*   **RizzCode10** - UI / UX Design & Workflows
+| Name | Role | GitHub |
+|------|------|--------|
+| **RavelGS** | AI Implementation & Model Integration | [![GitHub](https://img.shields.io/badge/-RavelGS-181717?logo=github&logoColor=white)](https://github.com/RavelGS) |
+| **tyawaa** | Frontend & Backend Data Integration | [![GitHub](https://img.shields.io/badge/-tyawaa-181717?logo=github&logoColor=white)](https://github.com/tyawaa) |
+| **RizzCode10** | UI / UX Design & Workflows | [![GitHub](https://img.shields.io/badge/-RizzCode10-181717?logo=github&logoColor=white)](https://github.com/RizzCode10) |
